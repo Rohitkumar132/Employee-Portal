@@ -13,14 +13,20 @@ const userLogin = async (req, res, next) => {
 
         console.log(user)
         console.log(data.password , user.passwordHash)
-        const validPassword = await bcrypt.compare(data.password, user.password)
+        const validPassword =  await bcrypt.compare(data.password, user.passwordHash).then((result) => {
+            console.log(result); // true or false
+            return result
+          }).catch((err) => {
+            console.error(err);
+          });
+          
         console.log(validPassword)
             // const token = jwt.sign(data._id, process.env.SALT);
         if(!validPassword)
             return res.status(400).send({message:"Incorrect Password"})
         
         const id = user._id
-        const token = jwt.sign(id,process.env.JWTPRIVATEKEY , {expiresIn: "8h"} )
+        const token = jwt.sign({id : user._id},process.env.JWTPRIVATEKEY , {expiresIn: "8h"} )
 
         await new UserModel({token:token, email: user.email, password: user.passwordHash, user_id: user._id }).save();
         log.info("User login Successfully", { "employeeId": data._id, "firstName": data.firstName, "file": "user-login.controller.js", "method": "userLogin" });
