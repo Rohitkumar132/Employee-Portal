@@ -38,3 +38,5 @@ const addStore = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports =  addStore;

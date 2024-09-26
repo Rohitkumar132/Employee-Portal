@@ -30,19 +30,19 @@ const storeSchema = Schema({
       timezone: {
         type: String,
       },
-      configs: {
-        remote_sharing: [RemoteSharingSchema],
-        video_server: [VideoServerScehma],
-        camera_server: [CameraServerSchema],
-        third_party_dvr: [ThirdPartyDvrSchema],
-        router_config: [RouterConfigSchema],
-        special_comments: [SpecialCommentsSchema],
-        notes: [SpecialCommentsSchema],
-        nest_geo_cam: [NestGeoCameraSchema],
-        media_service: [MediaServiceSchema],
-        vms_super_user: [VMSSuperuserSchema],
-        other: [otherConfigSchema],
-      },
+      // configs: {
+      //   remote_sharing: [RemoteSharingSchema],
+      //   video_server: [VideoServerScehma],
+      //   camera_server: [CameraServerSchema],
+      //   third_party_dvr: [ThirdPartyDvrSchema],
+      //   router_config: [RouterConfigSchema],
+      //   special_comments: [SpecialCommentsSchema],
+      //   notes: [SpecialCommentsSchema],
+      //   nest_geo_cam: [NestGeoCameraSchema],
+      //   media_service: [MediaServiceSchema],
+      //   vms_super_user: [VMSSuperuserSchema],
+      //   other: [otherConfigSchema],
+      // },
     
       store_phoneNumber: {
         validate: {
@@ -58,7 +58,7 @@ const storeSchema = Schema({
         type: String,
         required: true,
       },
-      media: [media],
+      // media: [media],
     
       date_added:
       {
@@ -126,28 +126,28 @@ const storeSchema = Schema({
           }
         },
       },
-      incentives: {
-        customer: {
-          prevented: {
-            currentAmount: { type: Number, Default: 50 },
-            previousValues: [IncentiveLog],
-          },
-          reported: {
-            currentAmount: { type: Number, Default: 25 },
-            previousValues: [IncentiveLog],
-          },
-        },
-        cashier: {
-          fraud: {
-            currentAmount: { type: Number, Default: 500 },
-            previousValues: [IncentiveLog],
-          },
-          suspicious: {
-            currentAmount: { type: Number, Default: 25 },
-            previousValues: [IncentiveLog],
-          }
-        },
-      },
+      // incentives: {
+      //   customer: {
+      //     prevented: {
+      //       currentAmount: { type: Number, Default: 50 },
+      //       previousValues: [IncentiveLog],
+      //     },
+      //     reported: {
+      //       currentAmount: { type: Number, Default: 25 },
+      //       previousValues: [IncentiveLog],
+      //     },
+      //   },
+      //   cashier: {
+      //     fraud: {
+      //       currentAmount: { type: Number, Default: 500 },
+      //       previousValues: [IncentiveLog],
+      //     },
+      //     suspicious: {
+      //       currentAmount: { type: Number, Default: 25 },
+      //       previousValues: [IncentiveLog],
+      //     }
+      //   },
+      // },
       active: {
         type: Boolean,
         default: true,
