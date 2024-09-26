@@ -1,87 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import withRouter from 'components/Common/withRouter';
 import PropTypes from "prop-types";
-
-//actions
-import {
-  changeLayout,
-  changeTopbarTheme,
-  changeLayoutWidth,
-  showRightSidebarAction,
-  changeLayoutMode
-} from "../../store/actions";
-
-//redux
-import { useSelector, useDispatch } from "react-redux";
-import { createSelector } from "reselect";
-
-//components
-import Navbar from "./Navbar";
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
 import Header from "./Header";
 import Footer from "./Footer";
 import RightSidebar from "../CommonForBoth/RightSidebar";
+import { useStores } from "store/storeProvider";
+import Navbar from "./Navbar";
 
 const Layout = (props) => {
-
-  const dispatch = useDispatch();
-  const selectLayoutState = (state) => state.Layout;
-
-  const selectLayoutProperties = createSelector(
-    selectLayoutState,
-    (layout) => ({
-      topbarTheme: layout.topbarTheme,
-      layoutWidth: layout.layoutWidth,
-      isPreloader: layout.isPreloader,
-      showRightSidebar: layout.showRightSidebar,      
-      layoutModeType: layout.layoutModeType,
-    })
-  );
+  const { layoutStore } = useStores();
   const {
-    topbarTheme,
+    isPreloader,
     layoutModeType,
     layoutWidth,
-    isPreloader,
-    showRightSidebar
-  } = useSelector(selectLayoutProperties);
-
-  /*
-  document title
-  */
-
-  const pathName = useLocation();
-
-  useEffect(() => {
-    const title = pathName.pathname;
-    let currentage = title.charAt(1).toUpperCase() + title.slice(2);
-
-    document.title =
-      currentage + " | Skote - React Admin & Dashboard Template";
-  }, [pathName.pathname]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    topbarTheme,
+    showRightSidebar,
+    showRightSidebarAction,
+    changeSidebarThemeImage,
+    changeLayout,
+    changeLayoutMode,
+    changeLayoutWidth
+  } = layoutStore;
 
 
-  //hides right sidebar on body click
   const hideRightbar = (event) => {
     var rightbar = document.getElementById("right-bar");
-    //if clicked in inside right bar, then do nothing
     if (rightbar && rightbar.contains(event.target)) {
       return;
     } else {
-      //if clicked in outside of rightbar then fire action for hide rightbar
-      dispatch(showRightSidebarAction(false));
+      showRightSidebarAction(false);
     }
   };
 
-  /*
-  layout settings
-  */
   useEffect(() => {
-    dispatch(changeLayout("horizontal"));
-  }, [dispatch]);
+    changeLayout("horizontal")
+  }, []);
 
   useEffect(() => {
     //init body click event fot toggle rightbar
@@ -103,21 +56,21 @@ const Layout = (props) => {
 
   useEffect(() => {
     if (layoutModeType) {
-      dispatch(changeLayoutMode(layoutModeType));
+      changeLayoutMode(layoutModeType);
     }
-  }, [dispatch, layoutModeType]);
+  }, [layoutModeType]);
 
   useEffect(() => {
     if (topbarTheme) {
-      dispatch(changeTopbarTheme(topbarTheme));
+      changeSidebarThemeImage(topbarTheme);
     }
-  }, [dispatch, topbarTheme]);
+  }, [topbarTheme]);
 
   useEffect(() => {
     if (layoutWidth) {
-      dispatch(changeLayoutWidth(layoutWidth));
+      changeLayoutWidth(layoutWidth);
     }
-  }, [dispatch, layoutWidth]);
+  }, [layoutWidth]);
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const openMenu = () => {
@@ -156,15 +109,7 @@ const Layout = (props) => {
 };
 
 Layout.propTypes = {
-  changeLayout: PropTypes.func,/*  */
-  changeLayoutWidth: PropTypes.func,
-  changeTopbarTheme: PropTypes.func,
   children: PropTypes.any,
-  isPreloader: PropTypes.any,
-  layoutWidth: PropTypes.any,
-  location: PropTypes.object,
-  showRightSidebar: PropTypes.any,
-  topbarTheme: PropTypes.any
 };
 
-export default withRouter(Layout);
+export default observer(Layout);

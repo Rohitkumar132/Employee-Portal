@@ -2,7 +2,7 @@ import BreadcrumbList from "components/Common/BreadcrumbList";
 import { Col, Container, Row } from "reactstrap";
 import React, { useEffect } from 'react'
 import { useStores } from "store/storeProvider";
-import EmployeeCards from "./EmployeeCards";
+import EmployeeCards from "./Components/EmployeeCards";
 import { observer } from "mobx-react-lite";
 
 const EmployeeList = () => {

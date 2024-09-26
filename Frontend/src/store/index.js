@@ -1,10 +1,12 @@
+import EmployeeStore from "./employeeStore/EmployeeStore";
 import LayoutStore from "./layout/layoutStore";
-import userStore from "./userStore/UserStore";
+import UserStore from "./userStore/UserStore";
 
 class RootStore {
   constructor() {
+    this.userStore = new UserStore();
     this.layoutStore = new LayoutStore();
-    this.userStore = new userStore();
+    this.employeeStore = new EmployeeStore();
   }
 }
 

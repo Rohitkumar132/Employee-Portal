@@ -9,9 +9,9 @@ class LayoutStore {
   leftSideBarType = "default";
   topbarTheme = "light";
   isPreloader = true;
-  showRightSidebar = true;
+  showRightSidebar = false;
   showSidebar = true;
-  leftMenu = true;
+  leftMenu = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -69,9 +69,16 @@ class LayoutStore {
     document.body.setAttribute("data-sidebar", theme);
   };
 
-  showRightSidebarAction = () => {
+  changePreloader = (open) => {
     runInAction(() => {
-      this.manageBodyClass("right-bar-enabled", "add")
+      this.isPreloader = open;
+    })
+  }
+
+  showRightSidebarAction = (open) => {
+    runInAction(() => {
+      this.showRightSidebar = open;
+      this.manageBodyClass("right-bar-enabled", 'add')
     })
   }
 
@@ -80,16 +87,16 @@ class LayoutStore {
     document.body.setAttribute("data-sidebar-image", themeImage);
   };
 
-  changeSidebarType = (sidebarType) => {
-    this.leftSideBarType = sidebarType;
-    if (sidebarType === "icon") {
-      document.body.setAttribute("data-sidebar-size", "");
-      document.body.classList.add("vertical-collpsed");
-    } else {
-      document.body.setAttribute("data-sidebar-size", sidebarType === "compact" ? "small" : "");
-      document.body.classList.toggle("vertical-collpsed", sidebarType !== "compact");
-    }
-  };
+  // changeSidebarType = (sidebarType) => {
+  //   this.leftSideBarType = sidebarType;
+  //   if (sidebarType === "icon") {
+  //     document.body.setAttribute("data-sidebar-size", "");
+  //     document.body.classList.add("vertical-collpsed");
+  //   } else {
+  //     document.body.setAttribute("data-sidebar-size", sidebarType === "compact" ? "small" : "");
+  //     document.body.classList.toggle("vertical-collpsed", sidebarType !== "compact");
+  //   }
+  // };
 
   changeTopbarTheme = (theme) => {
     this.topbarTheme = theme;
@@ -105,11 +112,19 @@ class LayoutStore {
     this.showSidebar = isOpen;
   };
 
-  toggleLeftMenu = (isOpen) => {
-    this.leftMenu = isOpen;
+  toggleLeftMenu = () => {
+    var body = document.body;
+    if (window.innerWidth <= 998) {
+      body.classList.remove("vertical-collpsed");
+      this.leftMenu = !body.classList.toggle("sidebar-enable")
+    } else {
+      this.leftMenu = !body.classList.toggle("vertical-collpsed")
+      body.classList.toggle("sidebar-enable");
+    }
   };
 
-  changeLeftSidebarType({ payload: { sidebarType, isMobile } }) {
+  changeSidebarType(sidebarType, isMobile) {
+
     try {
       switch (sidebarType) {
         case "compact":

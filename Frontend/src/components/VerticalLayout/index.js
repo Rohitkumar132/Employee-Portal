@@ -1,16 +1,8 @@
-import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import withRouter from "components/Common/withRouter";
-
-// Layout Related Components
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import Footer from "./Footer";
 import RightSidebar from "../CommonForBoth/RightSidebar";
-
-// Import the layout store
-// import layoutStore from "../../store/layoutStore";
 import { useStores } from "store/storeProvider";
 
 const Layout = (props) => {
@@ -114,15 +106,11 @@ const Layout = (props) => {
           isMobile={isMobile}
         />
         <div className="main-content">{props.children}</div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
       {showRightSidebar ? <RightSidebar /> : null}
     </React.Fragment>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.any,
 };
 
 export default observer(Layout);
