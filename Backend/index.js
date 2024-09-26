@@ -5,13 +5,13 @@ const port = process.env.PORT || 3000;
 const connectDatabase = require('./src/DB/index');
 const routes = require('./src/routes/index');
 const bodyParser = require('body-parser')
-
+const cors = require('cors');
 // connect to database
 connectDatabase();
 
 //middleware
-
-app.use(bodyParser())
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/', (req,res)=>{
     res.json({message:"Server is successfully Running"})
