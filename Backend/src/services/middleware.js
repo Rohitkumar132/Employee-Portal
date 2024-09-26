@@ -1,21 +1,26 @@
 const jwt = require('jsonwebtoken');
-const UserModel = require('../Models/user');
-const tokenAccessVerification = async(req,res,next)=>{
-    const data = req.headers['authorization'];
-    const userId = jwt.decode(data);
+const UserModel  = require('../Models/user');
+const middleware = async (req, res, next) => {
+
     try {
-        const user = await UserModel.findById({userId});
-        if(!user)
-            return res.status(400).send({message:"User not valid"});
-
-        req.user = userId;
+        const data = req.headers['authorization'];
+        // console.log(data)
+        const token = data.split(" ");
+        const userId = jwt.decode(token[1]);
+        console.log(userId)
+        const user = await UserModel.find({user_id:userId.id});
+        console.log("Hello" , userId,user);
+        if (!user)
+            return res.status(400).send({message: "User not Valid"})
+        // if(user)
+        //     return res.status(400).send({message: "Token Expired Please Re-login"});
+        req.user = user
+        // console.log("NIce" , req.user)
         next();
-    } catch (err) {
-        console.log(err, "ErrorLog::");
-        let error = new Error("Internal Server Error");
-        error.statusCode = 400;
-        next(error);
+    } catch (error) {
+        console.log(error)
+        return res.status(501).send({message: 'Internal Server Error'})
     }
-};
+}
 
-module.exports  = tokenAccessVerification;
+module.exports = middleware;
