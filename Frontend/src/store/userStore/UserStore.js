@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { postFakeLogin, postJwtLogin, postSocialLogin } from "helpers/fakebackend_helper";
+import { loginUser, postJwtLogin, postSocialLogin } from "helpers/fakebackend_helper";
 
 class UserStore {
     user = null;
@@ -16,10 +16,10 @@ class UserStore {
     async loginUser(data, navigate) {
         this.loading = true;
         this.error = "";
-
+        
         try {
-            const response = await postFakeLogin(data);
-
+            const response = await loginUser(data);
+            
             localStorage.setItem("authUser", JSON.stringify(response));
 
             runInAction(() => {
@@ -31,7 +31,7 @@ class UserStore {
             navigate('/dashboard');
         } catch (error) {
             runInAction(() => {
-                this.error = error;
+                this.error = JSON.stringify(error);
                 this.loading = false;
                 this.isUserLogout = false;
             });
