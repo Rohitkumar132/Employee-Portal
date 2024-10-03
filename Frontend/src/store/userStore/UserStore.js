@@ -31,7 +31,8 @@ class UserStore {
             navigate('/dashboard');
         } catch (error) {
             runInAction(() => {
-                this.error = JSON.stringify(error);
+                console.log(error?.message);
+                this.error = error?.message;
                 this.loading = false;
                 this.isUserLogout = false;
             });

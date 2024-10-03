@@ -1,5 +1,18 @@
 // Variables
+// Color system
 
+// scss-docs-start gray-color-variables
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #eff2f7;
+$gray-300: #f6f6f6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #74788d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
 //
 // custom-variables
 //
@@ -73,20 +86,6 @@ $table-dark-border-color:                           tint-color($gray-800, 7.5%);
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
-// Color system
-
-// scss-docs-start gray-color-variables
-$white:    #fff;
-$gray-100: #f8f9fa;
-$gray-200: #eff2f7;
-$gray-300: #f6f6f6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #74788d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-$black:    #000;
 // scss-docs-end gray-color-variables
 
 // fusv-disable

@@ -6,8 +6,8 @@ import { StoreProvider } from "store/storeProvider";
 import App from "./App";
 import "./i18n";
 
-import fakeBackend from 'helpers/AuthType/fakeBackend';
-fakeBackend();
+// import fakeBackend from 'helpers/AuthType/fakeBackend';
+// fakeBackend();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

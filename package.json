@@ -9,7 +9,6 @@
   ],
   "scripts": {
     "start": "concurrently \"npm run start --prefix frontend\" \"npm run start --prefix backend\"",
-    "install": "npm install --prefix frontend && npm install --prefix backend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
