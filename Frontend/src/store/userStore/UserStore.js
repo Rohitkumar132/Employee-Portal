@@ -19,11 +19,16 @@ class UserStore {
         
         try {
             const response = await loginUser(data);
+            const user = {
+                uid: response.data?.UserDetails?.token,
+                email: response.data?.UserDetails?.email,
+                role: response.data?.UserDetails?.role,
+            }
             
-            localStorage.setItem("authUser", JSON.stringify(response));
+            localStorage.setItem("authUser", JSON.stringify(user));
 
             runInAction(() => {
-                this.user = response;
+                this.user = user;
                 this.loading = false;
                 this.isUserLogout = false;
             });

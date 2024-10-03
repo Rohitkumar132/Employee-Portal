@@ -27,9 +27,9 @@ const userLogin = async (req, res, next) => {
         const update = {
             $set: {
                 token: token,
+                role: user.role,
+                user_id: user._id
             }
-
-
         }
         const options = { upsert: true }
         try {

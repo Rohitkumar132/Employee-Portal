@@ -140,12 +140,12 @@ const SidebarContent = () => {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li>
               <Link to="/#" className="has-arrow">
-                <i className="bx bx-home-circle"></i>
+                <i className="bx bx-user-circle"></i>
                 <span>{"Employee"}</span>
               </Link>
               <ul className="sub-menu">
                 <li>
-                  <Link to="#">{"Employee List"}</Link>
+                  <Link to="/dashboard">{"Employee List"}</Link>
                 </li>
                 <li>
                   <Link to="/add-employee">{"Add Employee"}</Link>

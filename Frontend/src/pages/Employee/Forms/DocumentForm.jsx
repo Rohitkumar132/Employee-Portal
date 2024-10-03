@@ -26,7 +26,7 @@ const DocumentForm = () => {
         >
             {({ isSubmitting }) => (
                 <Form>
-                    <Row className="row-cols-2 gap-3 border rounded overflow-hidden mb-3">
+                    <Row className="row-cols-2 g-3 border rounded overflow-hidden mb-3">
                         <Col sm={12} className='p-3 bg-primary bg-opacity-25 mb-3'>
                             <h6 className='mb-0'>Bank Details</h6>
                         </Col>
@@ -42,7 +42,7 @@ const DocumentForm = () => {
                         <Col><FormInput label='Company Assets' name='company_assets_doc' type='file' /></Col>
                     </Row>
                     <div className="text-end">
-                        <AppButton label='Next' isSubmitting={isSubmitting} type='submit' prefixIconList='right-arrow' />
+                        <AppButton label='Submit' isSubmitting={isSubmitting} type='submit' />
                     </div>
                 </Form>
             )}

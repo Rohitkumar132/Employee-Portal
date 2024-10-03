@@ -15,11 +15,11 @@ const LoginForm = (props) => {
     return (
         <Formik
             initialValues={{
-                email: "admin@themesbrand.com" || '',
-                password: "123456" || '',
+                username: "devshra" || '',
+                password: "dev@123" || '',
             }}
             validationSchema={Yup.object({
-                email: Yup.string().required("Please Enter Your Email"),
+                username: Yup.string().required("Please Enter Your Username"),
                 password: Yup.string().required("Please Enter Your Password"),
             })}
             onSubmit={async (values) => {
@@ -30,7 +30,7 @@ const LoginForm = (props) => {
                 <Form className="py-3">
                     {userStore.error ? <Alert color="danger">{userStore.error}</Alert> : null}
                     <Row className='row-cols-1 gap-3'>
-                        <Col><FormInput label="Email" name="email" /></Col>
+                        <Col><FormInput label="Username" name="username" /></Col>
                         <Col><FormInput label="Password" name="password" type="password" withShowPassword /></Col>
                     </Row>
                     <AppButton label="Log In" type="submit" isSubmitting={isSubmitting} className="mt-3 w-100" />

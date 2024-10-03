@@ -48,8 +48,8 @@ const Login = () => {
                   </Link>
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} Crafted with{" "}
+                  <i className="mdi mdi-heart text-danger" />
                 </p>
               </div> */}
           </Col>
