@@ -39,9 +39,9 @@ export async function get(url, config = {}) {
     .get(url, { ...config })
 }
 
-export async function post(url, data, config = {}) {
+export async function post(url, data, headers = {}) {
   return axiosApi
-    .post(url, { ...data }, { ...config })
+    .post(url, { ...data }, { headers })
 }
 
 export async function put(url, data, config = {}) {

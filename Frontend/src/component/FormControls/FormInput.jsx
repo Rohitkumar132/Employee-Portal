@@ -60,7 +60,7 @@ const FormInput = ({
     lg = false, // use with checkbox
     size = "default",
     withoutFormik = false,
-    noDefaultValue = true,
+    noDefaultValue = false,
 }) => {
     if (forDisplay) {
         return (
@@ -178,7 +178,7 @@ const FormInput = ({
                                     required={required}
                                     className={`form-control ${inputClass}`}
                                     invalid={meta.touched && meta.error ? true : false}>
-                                    {!noDefaultValue && <option value=''>{defaultOption || "Select"}</option>}
+                                    {!noDefaultValue && <option value=''>{defaultOption || ""}</option>}
                                     {options?.length !== 0 &&
                                         options.map((option, ind) => (
                                             <option value={option?.value} key={ind}>

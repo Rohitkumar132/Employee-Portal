@@ -5,7 +5,18 @@ import React from 'react'
 import { Col, Row } from 'reactstrap';
 import * as Yup from 'yup';
 
-const PersonalInfoForm = () => {
+const relationOptions = [
+    { label: 'Father', value: 'father' },
+    { label: 'Mother', value: 'mother' },
+    { label: 'Husband', value: 'husband' },
+    { label: 'Wife', value: 'wife' },
+    { label: 'Brother', value: 'brother' },
+    { label: 'Sister', value: 'sister' },
+    { label: 'Son', value: 'son' },
+    { label: 'Daughter', value: 'daughter' },
+]
+
+const PersonalInfoForm = ({ onSuccess = () => { } }) => {
     return (
         <Formik
             initialValues={{
@@ -54,10 +65,12 @@ const PersonalInfoForm = () => {
                 emergency_contact: Yup.string()
                     .matches(/^[789]\d{9}$/, 'Invalid emergency contact number')
                     .required('Emergency contact is required'),
-                emergency_relation: Yup.string().required('Emergency relation is required'),
+                emergency_relation: Yup.string().oneOf(relationOptions.map(item => item.value), 'Invalid relation').required('Emergency relation is required'),
             })}
-            onSubmit={values => {
-                console.log(values);
+            onSubmit={(values, { setSubmitting }) => {
+                localStorage.setItem('newUser', JSON.stringify(values));
+                setSubmitting(false);
+                onSuccess();
             }}
         >
             {({ isSubmitting }) => (
@@ -85,7 +98,7 @@ const PersonalInfoForm = () => {
                             <h6 className='mb-0'>Emergency Contact</h6>
                         </Col>
                         <Col><FormInput label='Name' name='emergency_name' /></Col>
-                        <Col><FormInput label='Relation' name='emergency_relation' type='select' /></Col>
+                        <Col><FormInput label='Relation' name='emergency_relation' type='select' options={relationOptions} /></Col>
                         <Col><FormInput label='Contact' name='emergency_contact' type='text' /></Col>
                     </Row>
                     <div className="text-end">
