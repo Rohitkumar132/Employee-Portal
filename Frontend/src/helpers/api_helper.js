@@ -1,15 +1,31 @@
 import axios from "axios";
 
-//apply base url for axios
 const API_URL = process.env.REACT_APP_API_URL;
 
 const axiosApi = axios.create({
   baseURL: API_URL,
 });
 
-const token = JSON.parse(localStorage.getItem("authUser"))?.uid;
+const defaultHeaders = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
 
-axiosApi.defaults.headers.common["Authorization"] = token;
+const authHeader = () => {
+  const token = JSON.parse(localStorage.getItem("authUser"))?.uid;
+  return { Authorization: `Bearer ${token}` };
+};
+
+const getHeaders = () => {
+  let headers = { ...defaultHeaders };
+  headers = { ...headers, ...authHeader() };
+  return headers;
+};
+
+axiosApi.interceptors.request.use(request => {
+  request.headers = getHeaders();
+  return request;
+});
 
 axiosApi.interceptors.response.use(
   (response) => response,
