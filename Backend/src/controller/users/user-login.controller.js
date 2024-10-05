@@ -9,7 +9,7 @@ const userLogin = async (req, res, next) => {
         // console.log(data);
         const user = await employeeModel.findOne({ username: data.username });
         if (!user)
-            return res.status(404).send({ message: "User not Register" });
+            return res.status(203).send({ message: "User not Register" });
 
         const validPassword = await bcrypt.compare(data.password, user.passwordHash).then((result) => {
             return result
@@ -19,7 +19,7 @@ const userLogin = async (req, res, next) => {
 
         // const token = jwt.sign(data._id, process.env.SALT);
         if (!validPassword)
-            return res.status(400).send({ message: "Incorrect Password" })
+            return res.status(203).send({ message: "Incorrect Password" })
 
         const id = user._id
         const token = jwt.sign({ id: user._id }, process.env.JWTPRIVATEKEY, { expiresIn: "8h" })
@@ -41,7 +41,7 @@ const userLogin = async (req, res, next) => {
         } catch (err) {
             console.log(err, "ErrorLog::");
             let error = new Error("Unable to retrieve employees list");
-            error.statusCode = 400;
+            error.statusCode = 203;
             next(error);
         }
     } catch (err) {

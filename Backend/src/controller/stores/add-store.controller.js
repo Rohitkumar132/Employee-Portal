@@ -7,6 +7,12 @@ const addStore = async (req, res, next) => {
     const { firstName, lastName, name, store_code, address, storeImage, city, state, zipcode, timezone, phoneNumber, date_added, activation_date, lock_date, store_lock_reason, store_config_completed, nest_account, store_phoneNumber, pos_name, pos_qty, timings, timings_category } = req.body
     log.info("Adding employee to the DB", { "employeeId": data._id, "firstName": data.firstName, "file": "add-store.controller.js", "method": "addStore" });
     try {
+        const customer = await customerModel.create({
+            firstName,
+            lastName,
+            phoneNumber,
+            email
+        });
         const store = await storeModel.create({
             name,
             store_code,
@@ -20,13 +26,8 @@ const addStore = async (req, res, next) => {
             pos_qty,
             pos_name,
             timings,
-            timings_category
-        });
-        const customer = await customerModel.create({
-            firstName,
-            lastName,
-            phoneNumber,
-            email
+            timings_category,
+            owner : customer
         });
         await store.save();
         await customer.save();
