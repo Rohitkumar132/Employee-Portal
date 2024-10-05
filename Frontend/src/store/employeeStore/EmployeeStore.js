@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from "mobx";
-import { getList } from "service/employee";
+import { addUser, getList } from "service/employee";
 
 class EmployeeStore {
     list = [];
@@ -22,6 +22,19 @@ class EmployeeStore {
         }
 
         return this.list;
+    }
+
+    addUser = async (data) => {
+        try {
+            const response = await addUser(data);
+            runInAction(() => {
+                this.list = response?.data;
+            });
+        } catch (error) {
+            runInAction(() => {
+                this.error = error;
+            });
+        }
     }
 }
 

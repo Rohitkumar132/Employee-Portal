@@ -1,11 +1,17 @@
+import { objectToFormData } from 'common/helperFunctions';
 import AppButton from 'component/Buttons/AppButton';
 import FormInput from 'component/FormControls/FormInput';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Col, Row } from 'reactstrap';
+import { useStores } from 'store/storeProvider';
 import * as Yup from 'yup';
 
-const DocumentForm = () => {
+const DocumentForm = ({ onSuccess = () => { } }) => {
+    const { employeeStore } = useStores();
+    const { addUser } = employeeStore;
+    console.log(employeeStore)
+
     return (
         <Formik
             initialValues={{
@@ -20,8 +26,18 @@ const DocumentForm = () => {
                 code_of_conduct_doc: '',
                 company_assets_doc: '',
             }}
-            onSubmit={values => {
-                console.log(values);
+            onSubmit={(values, { setSubmitting }) => {
+                const data = JSON.parse(localStorage.getItem('newUser'));
+
+                const formData = new FormData();
+                objectToFormData({ ...data, ...values }, formData);
+                addUser(data)
+                    .then((res) => {
+                        console.log(res)
+                        onSuccess();
+                    })
+                    .finally(() => setSubmitting(false))
+
             }}
         >
             {({ isSubmitting }) => (

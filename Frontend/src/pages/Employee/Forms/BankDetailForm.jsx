@@ -5,7 +5,7 @@ import React from 'react';
 import { Col, Row } from 'reactstrap';
 import * as Yup from 'yup';
 
-const BankDetailForm = () => {
+const BankDetailForm = ({ onSuccess = () => { } }) => {
     return (
         <Formik
             initialValues={{
@@ -24,12 +24,15 @@ const BankDetailForm = () => {
                     .matches(/^\d{9,18}$/, 'Account number must be between 9 and 18 digits'),
                 ifsc: Yup.string()
                     .required('IFSC code is required')
-                    .matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, 'Invalid IFSC code format'),
+                    .matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, 'IFSC code format ABCD0XYZ123'),
                 branch_name: Yup.string().required('Branch name is required'),
                 city: Yup.string().required('City is required'),
             })}
-            onSubmit={values => {
-                console.log(values);
+            onSubmit={(values, { setSubmitting }) => {
+                const data = JSON.parse(localStorage.getItem('newUser'));
+                localStorage.setItem('newUser', JSON.stringify({ ...data, ...values }));
+                setSubmitting(false);
+                onSuccess();
             }}
         >
             {({ isSubmitting }) => (

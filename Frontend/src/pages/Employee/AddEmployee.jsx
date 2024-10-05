@@ -1,5 +1,5 @@
 import BreadcrumbList from 'components/Common/BreadcrumbList';
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, CardBody, Container } from 'reactstrap';
 import PersonalInfoForm from './Forms/PersonalInfoForm';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
@@ -7,31 +7,47 @@ import 'react-tabs/style/react-tabs.css';
 import WorkInfoForm from './Forms/WorkInfoForm';
 import BankDetailForm from './Forms/BankDetailForm';
 import DocumentForm from './Forms/DocumentForm';
-const AddEmployee = () => {
+import withRouter from 'components/Common/withRouter';
+const AddEmployee = ({ router }) => {
+    const [tab, setTab] = useState(0);
+
+    const onTabChange = (index) => {
+        setTab(index);
+    }
+
+    const onSuccess = () => {
+        if (tab < 3) {
+            setTab(tab + 1);
+        } else {
+            setTab(0);
+            router.navigate('/dashboard');
+        }
+    }
+
     return (
         <div className='page-content'>
             <Container fluid>
                 <BreadcrumbList title="Add Employee" />
                 <Card>
                     <CardBody>
-                        <Tabs>
+                        <Tabs selectedIndex={tab} onSelect={onTabChange}>
                             <TabList>
-                                <Tab>Personal Info</Tab>
-                                <Tab>Work Info</Tab>
-                                <Tab>Back Details</Tab>
-                                <Tab>Documents</Tab>
+                                <Tab tabIndex='0'>Personal Info</Tab>
+                                <Tab tabIndex='1'>Work Info</Tab>
+                                <Tab tabIndex='2'>Back Details</Tab>
+                                <Tab tabIndex='3'>Documents</Tab>
                             </TabList>
                             <TabPanel>
-                                <PersonalInfoForm />
+                                <PersonalInfoForm onSuccess={onSuccess} />
                             </TabPanel>
                             <TabPanel>
-                                <WorkInfoForm />
+                                <WorkInfoForm onSuccess={onSuccess} />
                             </TabPanel>
                             <TabPanel>
-                                <BankDetailForm />
+                                <BankDetailForm onSuccess={onSuccess} />
                             </TabPanel>
                             <TabPanel>
-                                <DocumentForm />
+                                <DocumentForm onSuccess={onSuccess} />
                             </TabPanel>
                         </Tabs>
                     </CardBody>
@@ -41,4 +57,4 @@ const AddEmployee = () => {
     );
 }
 
-export default AddEmployee;
+export default withRouter(AddEmployee);

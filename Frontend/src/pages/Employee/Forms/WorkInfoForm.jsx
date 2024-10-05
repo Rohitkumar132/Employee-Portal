@@ -5,7 +5,13 @@ import React from 'react';
 import { Col, Row } from 'reactstrap';
 import * as Yup from 'yup';
 
-const WorkInfoForm = () => {
+const roleOptions = [
+    { label: 'Team Leader', value: 'team leader' },
+    { label: 'Employee', value: 'employee' },
+    { label: 'Super Admin', value: 'super admin' }
+]
+
+const WorkInfoForm = ({ onSuccess = () => { } }) => {
     return (
         <Formik
             initialValues={{
@@ -25,14 +31,14 @@ const WorkInfoForm = () => {
                 confirm_password: '',
             }}
             validationSchema={Yup.object().shape({
-                role: Yup.string().required('Role is required'),
-                shift: Yup.string().required('Shift is required'),
+                role: Yup.string().oneOf(roleOptions.map(option => option.value), 'Invalid role').required('Role is required'),
+                // shift: Yup.string().required('Shift is required'),
                 doj: Yup.date().required('Date of joining is required').nullable(),
                 allocation_under: Yup.string().required('Allocated under is required'),
                 biometric_id: Yup.string().optional(),
-                week_off: Yup.string().required('Week off is required'),
+                // week_off: Yup.string().required('Week off is required'),
                 opfin_id: Yup.string().optional(),
-                category: Yup.string().required('Category is required'),
+                // category: Yup.string().required('Category is required'),
                 travel_allowance: Yup.number().typeError('Must be a number'),
                 epfo: Yup.string()
                     .matches(/^[A-Z]{1}\d{7}$/, 'Invalid EPFO number format (A1234567)')
@@ -48,8 +54,11 @@ const WorkInfoForm = () => {
                     .oneOf([Yup.ref('password'), null], 'Passwords must match')
                     .required('Confirm password is required'),
             })}
-            onSubmit={values => {
-                console.log(values);
+            onSubmit={(values, { setSubmitting }) => {
+                const data = JSON.parse(localStorage.getItem('newUser'));
+                localStorage.setItem('newUser', JSON.stringify({ ...data, ...values }));
+                setSubmitting(false);
+                onSuccess();
             }}
         >
             {({ isSubmitting }) => (
@@ -58,7 +67,7 @@ const WorkInfoForm = () => {
                         <Col sm={12} className='p-3 bg-primary bg-opacity-25 mb-3'>
                             <h6 className='mb-0'>Work Information</h6>
                         </Col>
-                        <Col><FormInput label='Role' name='role' type='select' /></Col>
+                        <Col><FormInput label='Role' name='role' type='select' options={roleOptions} /></Col>
                         <Col><FormInput label='Shift' name='shift' type='select' /></Col>
                         <Col><FormInput label='Date of Joining' name='doj' type='date' /></Col>
                         <Col><FormInput label='Allocated Under' name='allocation_under' /></Col>
