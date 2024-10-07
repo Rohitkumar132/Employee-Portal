@@ -9,6 +9,6 @@ const router = express.Router();
 router
     .use('/', userController)
     .use('/employee', middleware, employeeController)
-    .use('/store', storeController)
+    .use('/store', middleware, storeController)
 
 module.exports = router;

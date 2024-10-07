@@ -3,7 +3,7 @@ const storeCategoryModel = require('../../models/storeCatergory');
 
 const getStoreCategory = async(req,res)=>{
     try {
-        const list = await getStoreCategory.find({});
+        const list = await storeCategoryModel.find({});
         response(res, true, "Store Catergory Fetched Successfully", list); 
     } catch (error) {
         response(res, false, "Internal server error", null , 501 , error.message);       
