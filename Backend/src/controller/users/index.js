@@ -1,9 +1,11 @@
-const express = require('express');
-const userController = express.Router();
 const userLogin = require('./user-login.controller');
 const getCustomer = require('./get-customer');
 
-userController.post('/login', userLogin);
-userController.post('/get-customer' , getCustomer);
+const express = require('express');
+const routes = express.Router();
 
-module.exports = userController;
+routes
+    .post('/login', userLogin)
+    .post('/get-customer', getCustomer);
+
+module.exports = routes;

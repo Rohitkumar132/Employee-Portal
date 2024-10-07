@@ -55,7 +55,7 @@
         "recharts": "^2.7.2",
         "reselect": "4.1.8",
         "simplebar-react": "^3.2.4",
-        "toastr": "^2.1.4",
+        "sonner": "^1.5.0",
         "yup": "^1.2.0"
     },
     "scripts": {

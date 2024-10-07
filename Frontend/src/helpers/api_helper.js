@@ -29,27 +29,27 @@ axiosApi.interceptors.request.use(request => {
 
 axiosApi.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error.response.data)
 );
 
-export default axiosApi;
-
 export async function get(url, config = {}) {
-  return await axiosApi
-    .get(url, { ...config })
+  const response = await axiosApi.get(url, { ...config });
+  return response.data;
 }
 
 export async function post(url, data, headers = {}) {
-  return axiosApi
-    .post(url, { ...data }, { headers })
+  const response = await axiosApi.post(url, { ...data }, { headers });
+  return response.data;
 }
 
 export async function put(url, data, config = {}) {
-  return axiosApi
-    .put(url, { ...data }, { ...config })
+  const response = await axiosApi.put(url, { ...data }, { ...config });
+  return response.data;
 }
 
 export async function del(url, config = {}) {
-  return await axiosApi
-    .delete(url, { ...config })
+  const response = await axiosApi.delete(url, { ...config });
+  return response.data;
 }
+
+export default axiosApi;

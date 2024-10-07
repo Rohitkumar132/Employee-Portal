@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import React from "react";
+import { toast } from "sonner";
 
 const LoginForm = (props) => {
     const { userStore } = useStores();
@@ -22,8 +23,17 @@ const LoginForm = (props) => {
                 username: Yup.string().required("Please Enter Your Username"),
                 password: Yup.string().required("Please Enter Your Password"),
             })}
-            onSubmit={async (values) => {
-                await userStore.loginUser(values, props.router.navigate);
+            onSubmit={(values, { setSubmitting }) => {
+                userStore.loginUser(values)
+                    .then(res => {
+                        if (res.status) {
+                            props.router.navigate('/dashboard');
+                        } else {
+                            toast.error(res.message);
+                        }
+                    })
+                    .catch(err => toast.info(err.message))
+                    .finally(() => setSubmitting(false));
             }}
         >
             {({ isSubmitting }) => (

@@ -1,8 +1,9 @@
-import React from "react";
-import ReactDOM from 'react-dom/client';
+import { StoreProvider } from "store/storeProvider";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { StoreProvider } from "store/storeProvider";
+import ReactDOM from 'react-dom/client';
+import { Toaster } from "sonner";
+import React from "react";
 import App from "./App";
 import "./i18n";
 
@@ -14,6 +15,11 @@ root.render(
   <React.Fragment>
     <StoreProvider>
       <BrowserRouter>
+        <Toaster
+          richColors
+          visibleToasts={10}
+          position="top-right"
+         />
         <App />
       </BrowserRouter>
     </StoreProvider>
