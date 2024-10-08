@@ -20,9 +20,6 @@ import logoImg from "../../assets/images/logo.svg";
 
 const Register = props => {
 
-  //meta title
-  document.title = "Register | Skote - React Admin & Dashboard Template";
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,9 +64,9 @@ const Register = props => {
     dispatch(apiError(""));
   }, []);
 
-useEffect(() => {
-  success && setTimeout(() => navigate("/login"), 2000)
-}, [success])
+  useEffect(() => {
+    success && setTimeout(() => navigate("/login"), 2000)
+  }, [success])
 
   return (
     <React.Fragment>
@@ -88,7 +85,7 @@ useEffect(() => {
                     <Col className="col-7">
                       <div className="text-primary p-4">
                         <h5 className="text-primary">Free Register</h5>
-                        <p>Get your free Skote account now.</p>
+                        <p>Get your free account now.</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">
@@ -196,7 +193,7 @@ useEffect(() => {
 
                       <div className="mt-4 text-center">
                         <p className="mb-0">
-                          By registering you agree to the Skote{" "}
+                          By registering you agree{" "}
                           <Link to="#" className="text-primary">
                             Terms of Use
                           </Link>
@@ -215,8 +212,8 @@ useEffect(() => {
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} Crafted with{" "}
+                  <i className="mdi mdi-heart text-danger" />
                 </p>
               </div>
             </Col>

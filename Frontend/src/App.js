@@ -7,9 +7,10 @@ import Authmiddleware from "./routes/route";
 import VerticalLayout from "./components/VerticalLayout/";
 import HorizontalLayout from "./components/HorizontalLayout/";
 import NonAuthLayout from "./components/NonAuthLayout";
-import "./assets/scss/theme.scss";
 import { useStores } from 'store/storeProvider';
 import { observer } from "mobx-react-lite";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./assets/scss/theme.scss";
 
 const getLayout = (layoutType) => {
   let Layout = VerticalLayout;

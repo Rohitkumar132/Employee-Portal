@@ -12,7 +12,7 @@ import { withTranslation } from "react-i18next";
 
 const Dashboard = props => {
   //meta title
-  document.title = "Dashboard | Skote - React Admin & Dashboard Template";
+  document.title = "Dashboard | Monitoring Software";
 
   return (
     <React.Fragment>

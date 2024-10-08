@@ -1,0 +1,11 @@
+input[type="date"] {
+    &:not(:focus):not(.input-has-value) {
+        color: transparent;
+    }
+
+    &.input-has-value,
+    &:focus-within {
+        color: #495057;
+        transition: 0.7s ease color;
+    }
+}

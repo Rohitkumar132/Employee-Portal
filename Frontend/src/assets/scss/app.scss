@@ -1,21 +1,13 @@
-/*
-Template Name: Skote - Admin & Dashboard Template
-Author: Themesbrand
-Version: 4.1.0.
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Main Css File
-*/
 
 //Fonts
 @import "custom/fonts/fonts";
 
 //Core files
-@import "./node_modules/bootstrap/scss/functions";
-@import "./node_modules/bootstrap/scss/variables";
+@import "~bootstrap/scss/functions"; // Import first
+@import "~bootstrap/scss/variables"; // Optional, for customizing variables
 @import "variables";
 @import "variables-dark";
-@import "./node_modules/bootstrap/scss/mixins.scss";
+@import "~bootstrap/scss/bootstrap"; // Import Bootstrap styles
 
 
 // Structure
@@ -39,6 +31,7 @@ File: Main Css File
 @import "custom/components/demos";
 @import "custom/components/print";
 @import "custom/components/badge";
+@import "custom/components/floatLabel.scss";
 
 // Plugins
 @import "custom/plugins/custom-scrollbar";

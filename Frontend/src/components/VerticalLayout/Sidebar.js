@@ -1,15 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-
-// i18n
-import { withTranslation } from "react-i18next";
 import SidebarContent from "./SidebarContent";
-
 import logo from "../../assets/images/logo.svg";
 import logoLightPng from "../../assets/images/logo-light.png";
 import logoLightSvg from "../../assets/images/logo-light.svg";
 import logoDark from "../../assets/images/logo-dark.png";
+import { observer } from "mobx-react-lite";
 
 const Sidebar = () => {
 
@@ -36,8 +33,6 @@ const Sidebar = () => {
           </Link>
         </div>
         <div data-simplebar className="h-100">
-          {/* Use the state to determine the type or any other logic */}
-          {/* {layout.type !== "condensed" ? <SidebarContent /> : <SidebarContent />} */}
           <SidebarContent />
         </div>
         <div className="sidebar-background"></div>
@@ -50,4 +45,4 @@ Sidebar.propTypes = {
   type: PropTypes.string,
 };
 
-export default withTranslation()(Sidebar);
+export default observer(Sidebar);

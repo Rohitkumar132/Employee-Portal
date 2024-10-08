@@ -1,45 +1,55 @@
 import axios from "axios";
-import accessToken from "./jwt-token-access/accessToken";
 
-//pass new generated access token here
-const token = accessToken;
-
-//apply base url for axios
-const API_URL = "http://localhost:3000";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const axiosApi = axios.create({
   baseURL: API_URL,
 });
 
-axiosApi.defaults.headers.common["Authorization"] = token;
+const defaultHeaders = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
+
+const authHeader = () => {
+  const token = JSON.parse(localStorage.getItem("authUser"))?.uid;
+  return { Authorization: `Bearer ${token}` };
+};
+
+const getHeaders = () => {
+  let headers = { ...defaultHeaders };
+  headers = { ...headers, ...authHeader() };
+  return headers;
+};
+
+axiosApi.interceptors.request.use(request => {
+  request.headers = getHeaders();
+  return request;
+});
 
 axiosApi.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error.response.data)
 );
 
-export default axiosApi;
-
 export async function get(url, config = {}) {
-  return await axiosApi
-    .get(url, { ...config })
-    .then((response) => response.data);
+  const response = await axiosApi.get(url, { ...config });
+  return response.data;
 }
 
-export async function post(url, data, config = {}) {
-  return axiosApi
-    .post(url, { ...data }, { ...config })
-    .then((response) => response.data);
+export async function post(url, data, headers = {}) {
+  const response = await axiosApi.post(url, { ...data }, { headers });
+  return response.data;
 }
 
 export async function put(url, data, config = {}) {
-  return axiosApi
-    .put(url, { ...data }, { ...config })
-    .then((response) => response.data);
+  const response = await axiosApi.put(url, { ...data }, { ...config });
+  return response.data;
 }
 
 export async function del(url, config = {}) {
-  return await axiosApi
-    .delete(url, { ...config })
-    .then((response) => response.data);
+  const response = await axiosApi.delete(url, { ...config });
+  return response.data;
 }
+
+export default axiosApi;

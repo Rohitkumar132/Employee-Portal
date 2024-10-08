@@ -1,21 +1,23 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../Models/user');
-const tokenAccessVerification = async(req,res,next)=>{
-    const data = req.headers['authorization'];
-    const userId = jwt.decode(data);
+const middleware = async (req, res, next) => {
+
     try {
-        const user = await UserModel.findById({userId});
-        if(!user)
-            return res.status(400).send({message:"User not valid"});
-
-        req.user = userId;
+        const token = req.headers['authorization'];
+        const userId = jwt.decode(token.split(" ")[1]);
+        const tokenAgeInHours = (Date.now() / 1000 - userId.iat) / 3600;
+        if (tokenAgeInHours > 8) {
+            return res.status(401).send({ message: "Token Expired, please re-login" });
+        }
+        const user = await UserModel.findOne({ user_id: userId?.id });
+        if (!user || user == null)
+            return res.status(401).send({ message: "User not Valid" })
+        req.user = user
         next();
-    } catch (err) {
-        console.log(err, "ErrorLog::");
-        let error = new Error("Internal Server Error");
-        error.statusCode = 400;
-        next(error);
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({ message: 'Internal Server Error' })
     }
-};
+}
 
-module.exports  = tokenAccessVerification;
+module.exports = middleware;
