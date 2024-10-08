@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const RemoteSharingSchema = require('./remoteSharing');
+const CameraServerSchema = require('./cameraServer');
+const ThirdPartyDvrSchema = require('./thirdPartyDvr');
+const VideoServerScehma = require('./videoServer');
+const RouterConfigSchema = require('./routerConfig')
 
-const storeSchema = Schema({
+const storeSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -30,20 +35,19 @@ const storeSchema = Schema({
       timezone: {
         type: String,
       },
-      // configs: {
-      //   remote_sharing: [RemoteSharingSchema],
-      //   video_server: [VideoServerScehma],
-      //   camera_server: [CameraServerSchema],
-      //   third_party_dvr: [ThirdPartyDvrSchema],
-      //   router_config: [RouterConfigSchema],
-      //   special_comments: [SpecialCommentsSchema],
-      //   notes: [SpecialCommentsSchema],
-      //   nest_geo_cam: [NestGeoCameraSchema],
-      //   media_service: [MediaServiceSchema],
-      //   vms_super_user: [VMSSuperuserSchema],
-      //   other: [otherConfigSchema],
-      // },
-    
+      configs: {
+        remote_sharing: [RemoteSharingSchema],
+        video_server: [VideoServerScehma],
+        camera_server: [CameraServerSchema],
+        third_party_dvr: [ThirdPartyDvrSchema],
+        router_config: [RouterConfigSchema],
+        // special_comments: [SpecialCommentsSchema],
+        // notes: [SpecialCommentsSchema],
+        // nest_geo_cam: [NestGeoCameraSchema],
+        // media_service: [MediaServiceSchema],
+        // vms_super_user: [VMSSuperuserSchema],
+        // other: [otherConfigSchema],
+      },
       store_phoneNumber: {
         validate: {
           validator: (v) => {
@@ -59,7 +63,6 @@ const storeSchema = Schema({
         required: true,
       },
       // media: [media],
-    
       date_added:
       {
         type: Date,
@@ -127,7 +130,7 @@ const storeSchema = Schema({
         },
       },
       // incentives: {
-      //   customer: {
+        // customer: {
       //     prevented: {
       //       currentAmount: { type: Number, Default: 50 },
       //       previousValues: [IncentiveLog],
@@ -193,4 +196,4 @@ const storeSchema = Schema({
 
 const Store = mongoose.model("stores" , storeSchema);
 
-module.exports;
+module.exports = Store;

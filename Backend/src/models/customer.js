@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const customerSchema = Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-},
-phoneNumber: {
+const customerSchema = new Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  phoneNumber: {
     type: String,
     required: true
   },
@@ -31,7 +31,7 @@ phoneNumber: {
   },
   admin_id: {
     type: Schema.Types.ObjectId,
-    required: true
+    // required: true
   },
   timestamps: {
     created_at: {
@@ -51,7 +51,6 @@ phoneNumber: {
   {
     type: Date,
   },
-
   profileImage: {
     type: String
   },
@@ -60,7 +59,7 @@ phoneNumber: {
   },
   role: {
     type: String,
-    required: true
+    // required: true
   },
   status: {
     type: String
@@ -73,12 +72,12 @@ phoneNumber: {
   },
   stores: [{ type: Schema.Types.ObjectId, ref: "Store" }],
   device_token: [{ type: String }],
-  notification:{
-    type : String,
+  notification: {
+    type: String,
     default: "enabled"
   }
 });
 
-const customer = mongoose.model("customer" , customerSchema);
+const customer = mongoose.model("customer", customerSchema);
 
 module.exports = customer

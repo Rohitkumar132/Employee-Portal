@@ -6,6 +6,6 @@ const routes = express.Router();
 
 routes
     .post('/login', userLogin)
-    .post('/get-customer', getCustomer);
+    .get('/get-customer', getCustomer);
 
 module.exports = routes;
