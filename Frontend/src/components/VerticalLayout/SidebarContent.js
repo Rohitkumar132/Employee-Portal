@@ -152,6 +152,20 @@ const SidebarContent = () => {
                 </li>
               </ul>
             </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-store"></i>
+                <span>{"Shop"}</span>
+              </Link>
+              <ul className="sub-menu">
+                <li>
+                  <Link to="/shop">{"Shop List"}</Link>
+                </li>
+                <li>
+                  <Link to="/add-shop">{"Add Shop"}</Link>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </SimpleBar>

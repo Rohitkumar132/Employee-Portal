@@ -2,13 +2,13 @@ import BreadcrumbList from "components/Common/BreadcrumbList";
 import { Col, Container, Row } from "reactstrap";
 import React, { useEffect } from 'react'
 import { useStores } from "store/storeProvider";
-import EmployeeCards from "./Components/EmployeeCards";
 import { observer } from "mobx-react-lite";
+import ShopCard from "./Components/ShopCard";
 
-const EmployeeList = () => {
+const ShopList = () => {
 
-    const { employeeStore } = useStores();
-    const { getList, list } = employeeStore;
+    const { shopStore } = useStores();
+    const { getList, list } = shopStore;
 
     useEffect(() => {
         getList();
@@ -19,9 +19,9 @@ const EmployeeList = () => {
             <Container fluid>
                 <BreadcrumbList title="Employee List" />
                 <Row className='row-cols-3'>
-                    {list?.map((_, i) =>
+                    {list.map((_, i) =>
                         <Col key={i}>
-                            <EmployeeCards data={_} />
+                            <ShopCard data={_} />
                         </Col>
                     )}
                 </Row>
@@ -30,4 +30,4 @@ const EmployeeList = () => {
     );
 }
 
-export default observer(EmployeeList);
+export default observer(ShopList);

@@ -5,6 +5,11 @@ export const getList = async () => {
     return response;
 }
 
+export const getEmployee = async id => {
+    const response = await get(`/employee/${id}`);
+    return response;
+}
+
 export const addUser = async (data) => {
     const response = await post('/employee/add-employee', data);
     return response;

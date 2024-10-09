@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "sonner";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -29,7 +30,16 @@ axiosApi.interceptors.request.use(request => {
 
 axiosApi.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error.response.data)
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem("authUser");
+      window.location.reload();
+      toast.error(error.response.data.message);
+    } else if (error.response.status === 500) {
+      toast.error(error.response.data.message);
+    }
+    return Promise.reject(error.response.data)
+  }
 );
 
 export async function get(url, config = {}) {
@@ -37,8 +47,8 @@ export async function get(url, config = {}) {
   return response.data;
 }
 
-export async function post(url, data, headers = {}) {
-  const response = await axiosApi.post(url, { ...data }, { headers });
+export async function post(url, data, config = {}) {
+  const response = await axiosApi.post(url, { ...data }, { ...config });
   return response.data;
 }
 

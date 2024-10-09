@@ -1,4 +1,7 @@
-input[type="date"] {
+// form
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
     &:not(:focus):not(.input-has-value) {
         color: transparent;
     }
@@ -8,4 +11,19 @@ input[type="date"] {
         color: #495057;
         transition: 0.7s ease color;
     }
+}
+
+// utils
+.vh-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #eff2f7;
+    opacity: 1;
 }

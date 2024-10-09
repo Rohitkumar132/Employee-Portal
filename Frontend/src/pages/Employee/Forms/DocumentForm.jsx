@@ -9,8 +9,7 @@ import * as Yup from 'yup';
 
 const DocumentForm = ({ onSuccess = () => { } }) => {
     const { employeeStore } = useStores();
-    const { addUser } = employeeStore;
-    console.log(employeeStore)
+    const { addUser, user } = employeeStore;
 
     return (
         <Formik
@@ -33,7 +32,6 @@ const DocumentForm = ({ onSuccess = () => { } }) => {
                 objectToFormData({ ...data, ...values }, formData);
                 addUser(data)
                     .then((res) => {
-                        console.log(res)
                         onSuccess();
                     })
                     .finally(() => setSubmitting(false))
@@ -58,7 +56,7 @@ const DocumentForm = ({ onSuccess = () => { } }) => {
                         <Col><FormInput label='Company Assets' name='company_assets_doc' type='file' /></Col>
                     </Row>
                     <div className="text-end">
-                        <AppButton label='Submit' isSubmitting={isSubmitting} type='submit' />
+                        <AppButton label={user ? 'Update' : 'Submit'} isSubmitting={isSubmitting} type='submit' />
                     </div>
                 </Form>
             )}

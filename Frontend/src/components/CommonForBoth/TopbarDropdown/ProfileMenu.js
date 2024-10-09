@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
 
 // users
-import user1 from "../../../assets/images/users/avatar-1.jpg";
+import dummyUser from "assets/images/users/dummy.jpg";
 import { useStores } from "store/storeProvider";
 import { observer } from "mobx-react-lite";
 
@@ -55,7 +55,7 @@ const ProfileMenu = props => {
         >
           <img
             className="rounded-circle header-profile-user"
-            src={user1}
+            src={dummyUser}
             alt="Header Avatar"
           />
           <span className="d-none d-xl-inline-block ms-2 me-1">{username}</span>

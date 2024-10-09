@@ -55,13 +55,14 @@ const FormInput = ({
     required = false,
     disabled = false,
     inputProps = {},
-    isMulti = true,
+    isMulti = false,
     defaultOption = false,
     lg = false, // use with checkbox
     size = "default",
     withoutFormik = false,
     noDefaultValue = false,
 }) => {
+
     if (forDisplay) {
         return (
             <div className={containerClass}>
@@ -123,105 +124,128 @@ const FormInput = ({
         case "password":
             const [showPass, setShowPass] = useState(false);
             return (
-                <>
-                    {/* {label && (
-                        <Label className={labelClass} {...labelProps}>
-                            {label}
-                        </Label>
-                    )} */}
-                    <Field name={name}>
-                        {({ field, meta }) => (
-                            <FloatLabel label={label} labelClass={labelClass} labelProps={labelProps} value={field.value}>
-                                <InputGroup>
-                                    <Input
-                                        {...field}
-                                        {...inputProps}
-                                        disabled={disabled}
-                                        required={required}
-                                        type={showPass ? "text" : "password"}
-                                        invalid={meta.touched && meta.error ? true : false}
-                                        className={`form-control ${!withShowPassword ? "" : "border-end-0"} ${inputClass}`}
-                                    />
-                                    {withShowPassword && (
-                                        <InputGroupText className={`bg-white border-start-0`} onClick={() => setShowPass(!showPass)}>
-                                            {showPass ? (
-                                                <i className='font-size-14 mdi mdi-eye-outline' role='button' />
-                                            ) : (
-                                                <i role='button' className='font-size-14 mdi mdi-eye-off-outline' />
-                                            )}
-                                        </InputGroupText>
-                                    )}
-                                </InputGroup>
-                                {meta.touched && meta.error && <div className={`error ${errorMsgClass}`}>{meta.error}</div>}
-                            </FloatLabel>
-                        )}
-                    </Field>
-                </>
+                <Field name={name}>
+                    {({ field, meta }) => (
+                        <FloatLabel label={label} labelClass={labelClass} labelProps={labelProps} value={field.value}>
+                            <InputGroup>
+                                <Input
+                                    {...field}
+                                    {...inputProps}
+                                    disabled={disabled}
+                                    required={required}
+                                    type={showPass ? "text" : "password"}
+                                    invalid={meta.touched && meta.error ? true : false}
+                                    className={`form-control ${!withShowPassword ? "" : "border-end-0"} ${inputClass}`}
+                                />
+                                {withShowPassword && (
+                                    <InputGroupText className={`bg-white border-start-0`} onClick={() => setShowPass(!showPass)}>
+                                        {showPass ? (
+                                            <i className='font-size-14 mdi mdi-eye-outline' role='button' />
+                                        ) : (
+                                            <i role='button' className='font-size-14 mdi mdi-eye-off-outline' />
+                                        )}
+                                    </InputGroupText>
+                                )}
+                            </InputGroup>
+                            {meta.touched && meta.error && <div className={`error ${errorMsgClass}`}>{meta.error}</div>}
+                        </FloatLabel>
+                    )}
+                </Field>
+            );
+
+        case "select-old":
+            return (
+                <Field name={name}>
+                    {({ field, meta }) => (
+                        <FloatLabel label={label} labelClass={labelClass} labelProps={labelProps} value={field.value}>
+                            <Input
+                                {...field}
+                                type={type}
+                                {...inputProps}
+                                disabled={disabled}
+                                required={required}
+                                className={`form-control ${inputClass}`}
+                                invalid={meta.touched && meta.error ? true : false}>
+                                {!noDefaultValue && <option value=''>{defaultOption || ""}</option>}
+                                {options?.length !== 0 &&
+                                    options.map((option, ind) => (
+                                        <option value={option?.value} key={ind}>
+                                            {option?.label}
+                                        </option>
+                                    ))}
+                            </Input>
+                            {meta.touched && meta.error && <div className={`error ${errorMsgClass}`}>{meta.error}</div>}
+                        </FloatLabel>
+                    )}
+                </Field>
             );
 
         case "select":
             return (
-                <>
-                    {/* {label && (
-                        <Label className={labelClass} {...labelProps}>
-                            {label}
-                        </Label>
-                    )} */}
-                    <Field name={name}>
-                        {({ field, meta }) => (
-                            <FloatLabel label={label} labelClass={labelClass} labelProps={labelProps} value={field.value}>
-                                <Input
-                                    {...field}
-                                    type={type}
-                                    {...inputProps}
-                                    disabled={disabled}
-                                    required={required}
-                                    className={`form-control ${inputClass}`}
-                                    invalid={meta.touched && meta.error ? true : false}>
-                                    {!noDefaultValue && <option value=''>{defaultOption || ""}</option>}
-                                    {options?.length !== 0 &&
-                                        options.map((option, ind) => (
-                                            <option value={option?.value} key={ind}>
-                                                {option?.label}
-                                            </option>
-                                        ))}
-                                </Input>
-                                {meta.touched && meta.error && <div className={`error ${errorMsgClass}`}>{meta.error}</div>}
-                            </FloatLabel>
-                        )}
-                    </Field>
-                </>
-            );
-
-        case "multi-select":
-            return (
-                <>
-                    {label && (
-                        <Label className={labelClass} {...labelProps}>
-                            {label}
-                        </Label>
+                <Field name={name}>
+                    {({ field: { value, ...field }, meta: { error, touched }, form }) => (
+                        <FloatLabel label={label} labelClass={labelClass} labelProps={labelProps} value={value}>
+                            <Select
+                                {...field}
+                                placeholder=''
+                                name={field.name}
+                                isMulti={isMulti}
+                                isDisabled={disabled}
+                                options={options || []}
+                                closeMenuOnSelect={!isMulti}
+                                value={isMulti ? value : options?.find(option => option.value === value)}
+                                onChange={selected => {
+                                    form.setFieldValue(field.name, isMulti ? selected : selected?.value)
+                                }}
+                                onBlur={() => form.handleBlur({ target: { name: field.name } })}
+                                {...inputProps}
+                                menuPortalTarget={document.body}
+                                styles={{
+                                    zIndex: "99999999",
+                                    control: (_, state) => ({
+                                        ..._,
+                                        borderColor: error && touched ? '#f46a6a' : '#ced4da',
+                                        borderRadius: '.25rem',
+                                        boxShadow:
+                                            state.isFocused ?
+                                                `0 0 0 0.15rem rgba(${error && touched ? "244, 106, 106" : "85, 110, 230"}, 0.25)`
+                                                : 'none',
+                                        minHeight: '36px',
+                                        height: 'calc(1.5em + .75rem + 2px)',
+                                        '&:hover': {
+                                            borderColor: error && touched ? '#f46a6a' : '#ced4da',
+                                        },
+                                    }),
+                                    dropdownIndicator: _ => ({
+                                        ..._,
+                                        color: "#343a40",
+                                        '&:hover': {
+                                            color: '#343a40',
+                                        },
+                                    }),
+                                    input: (_) => ({
+                                        ..._,
+                                        margin: '0',
+                                    }),
+                                    menu: (_) => ({
+                                        ..._,
+                                        zIndex: 1050,
+                                    }),
+                                    menuPortal: (provided) => ({
+                                        ...provided,
+                                        zIndex: 9999, // z-index for the portal
+                                    }),
+                                    indicatorSeparator: () => ({
+                                        display: 'none',
+                                    }),
+                                }}
+                            />
+                            {touched && error && (
+                                <div className={`error ${errorMsgClass}`}>{typeof error === "string" ? error : Object.values(error)?.[0]}</div>
+                            )}
+                        </FloatLabel>
                     )}
-                    <Field name={name}>
-                        {({ field, meta, form }) => (
-                            <>
-                                <Select
-                                    {...field}
-                                    options={options}
-                                    isDisabled={disabled}
-                                    name={field.name}
-                                    isMulti={isMulti}
-                                    closeMenuOnSelect={!isMulti}
-                                    onChange={selected => form.setFieldValue(field.name, selected)}
-                                    onBlur={() => form.handleBlur({ target: { name: field.name } })}
-                                    {...inputProps}
-                                />
-                                {meta.touched && meta.error && (
-                                    <div className={`error ${errorMsgClass}`}>{typeof meta.error === "string" ? meta.error : Object.values(meta.error)?.[0]}</div>
-                                )}
-                            </>
-                        )}
-                    </Field>
-                </>
+                </Field>
             );
 
         case "creatable":
@@ -334,14 +358,15 @@ const FormInput = ({
         case "radio":
             return (
                 <Field name={name}>
-                    {({ field, meta }) => (
+                    {({ field, meta, form }) => (
                         <div className={`form-check mt-4 ${containerClass}`} style={containerStyle}>
                             <Input
                                 {...field}
-                                type='radio'
+                                type="radio"
                                 disabled={disabled}
                                 required={required}
-                                defaultChecked={field.value}
+                                value={inputProps?.value || field?.value}
+                                checked={form.values[name] === (inputProps?.value || field?.value)} // This ensures the checked state is controlled by Formik
                                 className={`form-check-input ${inputClass}`}
                                 invalid={meta.touched && meta.error ? true : false}
                                 {...inputProps}
@@ -354,16 +379,12 @@ const FormInput = ({
                         </div>
                     )}
                 </Field>
+
             );
 
         default:
             return (
                 <div className={containerClass}>
-                    {/* {label && (
-                        <Label className={labelClass} {...labelProps}>
-                            {label}
-                        </Label>
-                    )} */}
                     <Field name={name}>
                         {({ field, meta }) => (
                             <FloatLabel label={label} labelClass={labelClass} labelProps={labelProps} value={field.value}>

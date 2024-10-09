@@ -112,7 +112,7 @@ const addEmployee = async (req, res, next) => {
                     official_email
                 });
                 await employee.save();
-                res.status(200).send({message:"Employee Added Successfully"})
+                res.status(200).send({ message: "Employee Added Successfully" })
             } catch (err) {
                 log.error(err, "Error occurred while adding employee to the DB");
                 let error = new Error(`Error occurred while registering employee - ${err.message}`);

@@ -1,42 +1,34 @@
 import AppButton from 'component/Buttons/AppButton';
 import FormInput from 'component/FormControls/FormInput';
+import { relationOptions } from 'constants/constants';
 import { Form, Formik } from 'formik';
 import React from 'react'
 import { Col, Row } from 'reactstrap';
 import * as Yup from 'yup';
 
-const relationOptions = [
-    { label: 'Father', value: 'father' },
-    { label: 'Mother', value: 'mother' },
-    { label: 'Husband', value: 'husband' },
-    { label: 'Wife', value: 'wife' },
-    { label: 'Brother', value: 'brother' },
-    { label: 'Sister', value: 'sister' },
-    { label: 'Son', value: 'son' },
-    { label: 'Daughter', value: 'daughter' },
-]
+const PersonalInfoForm = ({ initState, onSuccess = () => { } }) => {
 
-const PersonalInfoForm = ({ onSuccess = () => { } }) => {
     return (
         <Formik
+            enableReinitialize
             initialValues={{
-                firstName: '',
-                lastName: '',
-                fatherName: '',
-                motherName: '',
-                officialEmail: '',
-                dob: '',
-                education: '',
-                aadhaar: '',
-                pan: '',
-                currentAddress: '',
-                phoneNumber: '',
-                permanentAddress: '',
-                contact: '',
-                email: '',
-                emergency_name: '',
-                emergency_contact: '',
-                emergency_relation: '',
+                firstName: initState?.firstName || '',
+                lastName: initState?.lastName || '',
+                fatherName: initState?.fatherName || '',
+                motherName: initState?.motherName || '',
+                officialEmail: initState?.officialEmail || '',
+                dob: initState?.dob || '',
+                education: initState?.education || '',
+                aadhaar: initState?.aadhaar || '',
+                pan: initState?.pan || '',
+                currentAddress: initState?.currentAddress || '',
+                phoneNumber: initState?.phoneNumber || '',
+                permanentAddress: initState?.permanentAddress || '',
+                contact: initState?.contact || '',
+                email: initState?.email || '',
+                emergency_name: initState?.emergency_name || '',
+                emergency_contact: initState?.emergency_contact || '',
+                emergency_relation: initState?.emergency_relation || '',
             }}
             validationSchema={Yup.object().shape({
                 firstName: Yup.string().required('First name is required'),
@@ -65,7 +57,7 @@ const PersonalInfoForm = ({ onSuccess = () => { } }) => {
                 emergency_contact: Yup.string()
                     .matches(/^[789]\d{9}$/, 'Invalid emergency contact number')
                     .required('Emergency contact is required'),
-                emergency_relation: Yup.string().oneOf(relationOptions.map(item => item.value), 'Invalid relation').required('Emergency relation is required'),
+                emergency_relation: Yup.string().required('Emergency relation is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
                 localStorage.setItem('newUser', JSON.stringify(values));

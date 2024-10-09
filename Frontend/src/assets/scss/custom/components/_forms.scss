@@ -3,7 +3,9 @@
 //
 
 
-
+.form-control:focus {
+  box-shadow: $form-control-box-shadow;
+}
 
 [type="tel"],
 [type="url"],
@@ -57,7 +59,7 @@
     }
 
     &:checked {
-      background-color: var(--#{$prefix}secondary-bg)  !important;
+      background-color: var(--#{$prefix}secondary-bg) !important;
 
       &[type=checkbox] {
         background-image: none;
@@ -90,7 +92,7 @@
     }
 
     &:checked {
-      background-color: var(--#{$prefix}secondary-bg)  !important;
+      background-color: var(--#{$prefix}secondary-bg) !important;
 
       &[type=checkbox] {
         background-image: none;
@@ -209,8 +211,8 @@ $value in $theme-colors {
 
 .rdl-move {
 
-    .form-check-input,
-    .form-check-input:focus {
-      background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$gray-400}'/></svg>"));
-    }
+  .form-check-input,
+  .form-check-input:focus {
+    background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$gray-400}'/></svg>"));
   }
+}

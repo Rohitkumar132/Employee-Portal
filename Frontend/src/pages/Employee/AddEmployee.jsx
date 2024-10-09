@@ -1,5 +1,5 @@
 import BreadcrumbList from 'components/Common/BreadcrumbList';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Container } from 'reactstrap';
 import PersonalInfoForm from './Forms/PersonalInfoForm';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
@@ -8,8 +8,32 @@ import WorkInfoForm from './Forms/WorkInfoForm';
 import BankDetailForm from './Forms/BankDetailForm';
 import DocumentForm from './Forms/DocumentForm';
 import withRouter from 'components/Common/withRouter';
+import { useStores } from 'store/storeProvider';
 const AddEmployee = ({ router }) => {
+    const { shopStore, employeeStore } = useStores();
+    const { getCategoriesList } = shopStore;
+    const { getEmployee } = employeeStore;
+
+    const { id } = router.params;
+
+
     const [tab, setTab] = useState(0);
+    const [initState, setInistate] = useState({});
+
+    // useEffect(() => {
+    //     if (localStorage.getItem('newUser'))
+    //         setInistate(JSON.parse(localStorage.getItem('newUser')))
+    // }, [localStorage.getItem('newUser')])
+    useEffect(() => {
+        if (id)
+            getEmployee(id)
+                .then(_ => setInistate(_))
+    }, [id])
+
+    useEffect(() => {
+        if (tab === 1)
+            getCategoriesList();
+    }, [tab])
 
     const onTabChange = (index) => {
         setTab(index);
@@ -38,16 +62,16 @@ const AddEmployee = ({ router }) => {
                                 <Tab tabIndex='3'>Documents</Tab>
                             </TabList>
                             <TabPanel>
-                                <PersonalInfoForm onSuccess={onSuccess} />
+                                <PersonalInfoForm initState={initState} onSuccess={onSuccess} />
                             </TabPanel>
                             <TabPanel>
-                                <WorkInfoForm onSuccess={onSuccess} />
+                                <WorkInfoForm initState={initState} onSuccess={onSuccess} />
                             </TabPanel>
                             <TabPanel>
-                                <BankDetailForm onSuccess={onSuccess} />
+                                <BankDetailForm initState={initState} onSuccess={onSuccess} />
                             </TabPanel>
                             <TabPanel>
-                                <DocumentForm onSuccess={onSuccess} />
+                                <DocumentForm initState={initState} onSuccess={onSuccess} />
                             </TabPanel>
                         </Tabs>
                     </CardBody>

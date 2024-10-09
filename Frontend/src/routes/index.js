@@ -16,11 +16,17 @@ import Pages404 from "pages/Others/pages-404";
 import Dashboard from "../pages/Dashboard/index";
 import EmployeeList from "pages/Employee/List";
 import AddEmployee from "pages/Employee/AddEmployee";
+import ShopList from "pages/Shop/List";
+import AddShop from "pages/Shop/AddShop";
 
 const authProtectedRoutes = [
   // { path: "/dashboard", component: <Dashboard /> },
   { path: "/dashboard", component: <EmployeeList /> },
   { path: "/add-employee", component: <AddEmployee /> },
+  { path: "/add-employee/:id", component: <AddEmployee /> },
+
+  { path: "/shop", component: <ShopList /> },
+  {path: "/add-shop", component: <AddShop />},
   // //profile
   // { path: "/profile", component: <UserProfile /> },
 

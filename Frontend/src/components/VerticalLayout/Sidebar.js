@@ -14,7 +14,7 @@ const Sidebar = () => {
     <React.Fragment>
       <div className="vertical-menu">
         <div className="navbar-brand-box">
-          <Link to="/" className="logo logo-dark">
+          {/* <Link to="/" className="logo logo-dark">
             <span className="logo-sm">
               <img src={logo} alt="" height="22" />
             </span>
@@ -30,7 +30,7 @@ const Sidebar = () => {
             <span className="logo-lg">
               <img src={logoLightPng} alt="" height="19" />
             </span>
-          </Link>
+          </Link> */}
         </div>
         <div data-simplebar className="h-100">
           <SidebarContent />

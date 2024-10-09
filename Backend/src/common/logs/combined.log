@@ -1,6 +1,0 @@
-{"level":"info","message":"POST /api/login 401 112ms","meta":{"req":{"headers":{"accept":"*/*","accept-encoding":"gzip, deflate, br","cache-control":"no-cache","connection":"keep-alive","content-length":"58","content-type":"application/json","host":"localhost:3005","postman-token":"70123672-d73b-4c58-902a-e8828619e49f","user-agent":"PostmanRuntime/7.39.1"},"httpVersion":"1.1","method":"POST","originalUrl":"/api/login","query":{},"url":"/api/login"},"res":{"statusCode":401},"responseTime":112},"timestamp":"2024-10-07 00:21:34"}
-{"level":"info","message":"POST /api/login 401 59ms","meta":{},"timestamp":"2024-10-07 00:22:49"}
-2024-10-07 00:24:26 [INFO] HTTP POST /api/login 401 100ms (at ..\node_modules\logform\printf.js:11)
-2024-10-07 00:24:44 [INFO] HTTP POST /api/login 500 12ms (at ..\node_modules\logform\printf.js:11)
-2024-10-07 00:27:06 [INFO] HTTP POST /api/login (at ..\node_modules\express\lib\router\layer.js:95) (at ..\node_modules\logform\printf.js:11)
-2024-10-07 00:28:05 [INFO] HTTP POST /api/login (at ..\node_modules\express\lib\router\index.js:328) (at ..\node_modules\logform\combine.js:20)

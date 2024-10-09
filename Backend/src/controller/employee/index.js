@@ -7,8 +7,8 @@ const updateEmployee = require('./update-employee.controller')
 
 employeeController
     .post('/add-employee', addEmployee)
-    .get('/employee-details', getEmployee)
     .get('/all-employee', getAllEmployees)
-    .post('/update-employee', updateEmployee);
+    .post('/update-employee', updateEmployee)
+    .get('/:id', getEmployee)
 
 module.exports = employeeController;

@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col, FormGroup } from "reactstrap";
 import SimpleBar from "simplebar-react";
 import { Link } from "react-router-dom";
-import "../../components/CommonForBoth/rightbar.scss";
 import bgimg1 from "../../assets/images/sidebar/img1.jpg";
 import bgimg2 from "../../assets/images/sidebar/img2.jpg";
 import bgimg3 from "../../assets/images/sidebar/img3.jpg";

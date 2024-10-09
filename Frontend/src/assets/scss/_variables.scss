@@ -996,6 +996,7 @@ $form-color-width:                      3rem;
 // scss-docs-end form-input-variables
 
 // scss-docs-start form-check-variables
+$form-control-box-shadow:                 0 0 0 0.15rem rgba(85, 110, 230, 0.25);
 $form-check-input-width:                  1em;
 $form-check-min-height:                   $font-size-base * $line-height-base;
 $form-check-padding-start:                $form-check-input-width + .5em;

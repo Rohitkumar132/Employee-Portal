@@ -1,10 +1,9 @@
-import { makeAutoObservable, runInAction, toJS } from "mobx";
-import { addUser, getEmployee, getList } from "service/employee";
+import { makeAutoObservable, runInAction } from "mobx";
+import { addUser, getCategoriesList, getList } from "service/shop";
 
-class EmployeeStore {
+class ShopStore {
     list = [];
     error = null;
-    user = undefined;
 
     constructor() {
         makeAutoObservable(this);
@@ -15,32 +14,14 @@ class EmployeeStore {
             const response = await getList();
             runInAction(() => {
                 this.list = response?.data;
-                this.user = undefined;
             });
         } catch (error) {
-            console.log(error)
             runInAction(() => {
                 this.error = error;
             });
         }
 
         return this.list;
-    }
-
-    getEmployee = async (id) => {
-        try {
-            const response = await getEmployee(id);
-            runInAction(() => {
-                this.user = response?.data;
-            });
-        } catch (error) {
-            console.log(error)
-            runInAction(() => {
-                this.error = error;
-            });
-        }
-
-        return this.user;
     }
 
     addUser = async (data) => {
@@ -50,13 +31,25 @@ class EmployeeStore {
                 this.list = response?.data;
             });
         } catch (error) {
-            console.log(error)
             runInAction(() => {
                 this.error = error;
             });
         }
     }
 
+    getCategoriesList = async () => {
+        try {
+            const response = await getCategoriesList();
+            runInAction(() => {
+                this.list = response?.data;
+            });
+        } catch (error) {
+            runInAction(() => {
+                this.error = error;
+            });
+        }
+        return this.list;
+    }
 }
 
-export default EmployeeStore;
+export default ShopStore;

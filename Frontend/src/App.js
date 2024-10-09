@@ -9,7 +9,6 @@ import HorizontalLayout from "./components/HorizontalLayout/";
 import NonAuthLayout from "./components/NonAuthLayout";
 import { useStores } from 'store/storeProvider';
 import { observer } from "mobx-react-lite";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/scss/theme.scss";
 
 const getLayout = (layoutType) => {

@@ -11,6 +11,7 @@ import logoDark from "../../assets/images/logo-dark.png";
 
 //i18n
 import { withTranslation } from "react-i18next";
+import { useStores } from "store/storeProvider";
 
 const Header = () => {
   const { layoutStore } = useStores();

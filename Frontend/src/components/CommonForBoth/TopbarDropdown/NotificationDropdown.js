@@ -29,7 +29,7 @@ const NotificationDropdown = props => {
           id="page-header-notifications-dropdown"
         >
           <i className="bx bx-bell bx-tada" />
-          <span className="badge bg-danger rounded-pill">3</span>
+          {/* <span className="badge bg-danger rounded-pill">3</span> */}
         </DropdownToggle>
 
         <DropdownMenu className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0">
@@ -40,7 +40,6 @@ const NotificationDropdown = props => {
               </Col>
               <div className="col-auto">
                 <a href="#" className="small">
-                  {" "}
                   View All
                 </a>
               </div>
@@ -66,8 +65,8 @@ const NotificationDropdown = props => {
                       )}
                     </p>
                     <p className="mb-0">
-                      <i className="mdi mdi-clock-outline" />{" "}
-                      {props.t("3 min ago")}{" "}
+                      <i className="mdi mdi-clock-outline" />
+                      {props.t("3 min ago")}
                     </p>
                   </div>
                 </div>
@@ -89,7 +88,7 @@ const NotificationDropdown = props => {
                     </p>
                     <p className="mb-0">
                       <i className="mdi mdi-clock-outline" />
-                      {props.t("1 hours ago")}{" "}
+                      {props.t("1 hours ago")}
                     </p>
                   </div>
                 </div>
@@ -113,7 +112,7 @@ const NotificationDropdown = props => {
                       )}
                     </p>
                     <p className="mb-0">
-                      <i className="mdi mdi-clock-outline" />{" "}
+                      <i className="mdi mdi-clock-outline" />
                       {props.t("3 min ago")}
                     </p>
                   </div>
@@ -138,7 +137,7 @@ const NotificationDropdown = props => {
                     </p>
                     <p className="mb-0">
                       <i className="mdi mdi-clock-outline" />
-                      {props.t("1 hours ago")}{" "}
+                      {props.t("1 hours ago")}
                     </p>
                   </div>
                 </div>

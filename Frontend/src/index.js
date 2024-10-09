@@ -17,9 +17,10 @@ root.render(
       <BrowserRouter>
         <Toaster
           richColors
+          duration={4000}
           visibleToasts={10}
           position="top-right"
-         />
+        />
         <App />
       </BrowserRouter>
     </StoreProvider>

@@ -5,16 +5,16 @@ import React from 'react';
 import { Col, Row } from 'reactstrap';
 import * as Yup from 'yup';
 
-const BankDetailForm = ({ onSuccess = () => { } }) => {
+const BankDetailForm = ({ initState, onSuccess = () => { } }) => {
     return (
         <Formik
             initialValues={{
-                name_on_passbook: '',
-                bank_name: '',
-                account_number: '',
-                ifsc: '',
-                branch_name: '',
-                city: '',
+                name_on_passbook: initState?.name_on_passbook || '',
+                bank_name: initState?.bank_name || '',
+                account_number: initState?.account_number || '',
+                ifsc: initState?.ifsc || '',
+                branch_name: initState?.branch_name || '',
+                city: initState?.city || '',
             }}
             validationSchema={Yup.object().shape({
                 name_on_passbook: Yup.string().required('Name on passbook is required'),
